@@ -30,4 +30,4 @@ jobs:
           package-name: ${{ inputs.package-name }}
           package-type: "container"
           min-versions-to-keep: ${{ inputs.min-versions-to-keep }}
-          delete-only-pre-release-versions: ${{ inputs.delete-only-untagged-versions }}
+          delete-only-untagged-versions: ${{ inputs.delete-only-untagged-versions }}
