@@ -10,7 +10,7 @@ on:
       min-versions-to-keep:
         description: "Number of latest versions to keep (min: 1)"
         required: true
-        default: "5"
+        default: 5
         type: number
       delete-only-untagged-versions:
         description: "Delete only untagged versions"
