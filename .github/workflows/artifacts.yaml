@@ -3,6 +3,11 @@ name: Artifacts
 on:
   workflow_call:
     inputs:
+      registry:
+        description: Artifact store registry name
+        default: "ghcr.io"
+        required: true
+        type: string
       publish:
         description: Publish artifacts to the artifact store
         default: false
@@ -63,7 +68,7 @@ jobs:
 
       - name: Set image name
         id: image-name
-        run: echo "value=ghcr.io/${{ github.repository }}" >> "$GITHUB_OUTPUT"
+        run: echo "value=${{ inputs.registry }}/${{ github.repository }}" >> "$GITHUB_OUTPUT"
 
       - name: Add SHORT_SHA env property with commit short sha
         run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
@@ -100,10 +105,10 @@ jobs:
           if_true: type=image,push=true
           if_false: type=oci,dest=image.tar
 
-      - name: Login to GitHub Container Registry
+      - name: Login to Container Registry
         uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20 # v3.1.0
         with:
-          registry: ghcr.io
+          registry: ${{ inputs.registry }}
           username: ${{ github.actor }}
           password: ${{ github.token }}
         if: inputs.publish
