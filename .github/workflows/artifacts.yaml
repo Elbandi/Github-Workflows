@@ -12,6 +12,10 @@ on:
         default: "ghcr.io"
         required: true
         type: string
+      repository:
+        description: Image repository name
+        required: true
+        type: string
       publish:
         description: Publish artifacts to the artifact store
         default: false
@@ -72,7 +76,7 @@ jobs:
 
       - name: Set image name
         id: image-name
-        run: echo "value=${{ inputs.registry }}/${{ github.repository }}" >> "$GITHUB_OUTPUT"
+        run: echo "value=${{ inputs.registry }}/${{ inputs.repository }}" >> "$GITHUB_OUTPUT"
 
       - name: Add SHORT_SHA env property with commit short sha
         run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
