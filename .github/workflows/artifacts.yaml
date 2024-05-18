@@ -3,6 +3,10 @@ name: Artifacts
 on:
   workflow_call:
     inputs:
+      context:
+        description: Context directory
+        default: "."
+        type: string
       registry:
         description: Artifact store registry name
         default: "ghcr.io"
@@ -117,7 +121,7 @@ jobs:
         id: build
         uses: docker/build-push-action@2cdde995de11925a030ce8070c3d77a52ffcf1c0 # v5.3.0
         with:
-          context: .
+          context: ${{ inputs.context }}
           platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           build-args: |
