@@ -10,7 +10,6 @@ on:
       registry:
         description: Artifact store registry name
         default: "ghcr.io"
-        required: true
         type: string
       repository:
         description: Image repository name
